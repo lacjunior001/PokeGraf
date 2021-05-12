@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    List<Pokemon> pokemons = ViewBag.Pokemons;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <form asp-controller="Home" asp-action="Index">
+        <p>
+            Title: <input type="text" name="SearchString" />
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
+    @if (pokemons != null)
+    {
+        @foreach (var pokemon in pokemons)
+        {
+            <tr>
+                <td>@pokemon.Name</td>
+                <td>
+                    @foreach (var item in pokemon.Types)
+                    {
+                        @item.Type.Name
+                    }
+                </td>
+            </tr>
+        }
+    }
+
+
+
+</div>
