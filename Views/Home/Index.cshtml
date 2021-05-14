@@ -1,6 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-    List<Pokemon> pokemons = ViewBag.Pokemons;
+
+    PokemonSpecies pokemonS = ViewBag.PokemonS;
+    Pokemon pokemon = ViewBag.Pokemon;
+
+    EvolutionChain evolutionChain = ViewBag.pokemonChain;
+
+    PokemonSpecies pokeCounter = ViewBag.PokeCounter;
+
 }
 
 <div class="text-center">
@@ -9,24 +16,70 @@
 
     <form asp-controller="Home" asp-action="Index">
         <p>
-            Title: <input type="text" name="SearchString" />
+            Nome: <input type="text" name="busca" />
             <input type="submit" value="Filter" />
         </p>
     </form>
-    @if (pokemons != null)
+    @if (pokemon != null)
     {
-        @foreach (var pokemon in pokemons)
+        if (pokemon.Name.Equals("NãoExiste"))
         {
-            <tr>
-                <td>@pokemon.Name</td>
-                <td>
-                    @foreach (var item in pokemon.Types)
-                    {
-                        @item.Type.Name
-                    }
-                </td>
-            </tr>
+            <h1>Nenhum Pokemon Encontrado</h1>
         }
+        else
+        {
+            <style>
+                table {
+                    font-family: arial, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+
+                td, th {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                }
+
+                tr:nth-child(even) {
+                    background-color: #dddddd;
+                }
+            </style>
+
+            <table>
+                <tr>
+                    <td>Nome</td>
+                    <td>Tipo 1</td>
+                    <td>Tipo 2</td>
+                </tr>
+                <tr>
+                    <td>@pokemon.Name</td>
+                    @for (int i = 0; i < 2; i++)
+                    {
+                        <td>
+                            @pokemon.Types[i].Type.Name;
+                        </td>
+                    }
+                </tr>
+            </table>
+            if (pokemonS.EvolvesFromSpecies != null)
+            {
+                <h3>Evolui de:</h3>
+                <h3>
+                    @pokemonS.EvolvesFromSpecies.Name
+                </h3>
+            }
+            if (pokemonS.EvolutionChain != null)
+            {
+                <h3>Evolui Para:</h3>
+                <h3>
+                    @pokemonS.EvolvesFromSpecies.Name
+                </h3>
+            }
+
+
+        }
+
     }
 
 
