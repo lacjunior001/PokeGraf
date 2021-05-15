@@ -1,87 +1,147 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 
-    PokemonSpecies pokemonS = ViewBag.PokemonS;
-    Pokemon pokemon = ViewBag.Pokemon;
-
-    EvolutionChain evolutionChain = ViewBag.pokemonChain;
-
-    PokemonSpecies pokeCounter = ViewBag.PokeCounter;
-
+    List<string> elemento = ViewBag.Elemento;
+    List<int> quantidade = ViewBag.quantidade;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-    <form asp-controller="Home" asp-action="Index">
-        <p>
-            Nome: <input type="text" name="busca" />
-            <input type="submit" value="Filter" />
-        </p>
-    </form>
-    @if (pokemon != null)
-    {
-        if (pokemon.Name.Equals("NãoExiste"))
-        {
-            <h1>Nenhum Pokemon Encontrado</h1>
-        }
-        else
-        {
-            <style>
-                table {
-                    font-family: arial, sans-serif;
-                    border-collapse: collapse;
-                    width: 100%;
-                }
-
-                td, th {
-                    border: 1px solid #dddddd;
-                    text-align: left;
-                    padding: 8px;
-                }
-
-                tr:nth-child(even) {
-                    background-color: #dddddd;
-                }
-            </style>
-
-            <table>
-                <tr>
-                    <td>Nome</td>
-                    <td>Tipo 1</td>
-                    <td>Tipo 2</td>
-                </tr>
-                <tr>
-                    <td>@pokemon.Name</td>
-                    @for (int i = 0; i < 2; i++)
-                    {
-                        <td>
-                            @pokemon.Types[i].Type.Name;
-                        </td>
-                    }
-                </tr>
-            </table>
-            if (pokemonS.EvolvesFromSpecies != null)
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load("current", { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ["Element", "Gastly", { role: "style" }],
+            @for (int i = 0; i < 18; i++)
             {
-                <h3>Evolui de:</h3>
-                <h3>
-                    @pokemonS.EvolvesFromSpecies.Name
-                </h3>
+                <text>["</text>@elemento[i]<text>",</text>@quantidade[i]<text>, "#e32636"],</text>
             }
-            if (pokemonS.EvolutionChain != null)
+            ["Kanto", 8, "#e32636"],
+
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
             {
-                <h3>Evolui Para:</h3>
-                <h3>
-                    @pokemonS.EvolvesFromSpecies.Name
-                </h3>
-            }
+                calc: "stringify",
+                sourceColumn: 1,
+                type: "string",
+                role: "annotation"
+            },
+            2]);
 
-
-        }
-
+        var options = {
+            title: "Número de Pokémon por Geração",
+            width: 300,
+            height: 500,
+            bar: { groupWidth: "95%" },
+            legend: { position: "none" },
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+        chart.draw(view, options);
     }
+</script>
 
 
 
+<div class="geracao-salmao">
+    <div class="geracao-black">
+        <h5 class="h5-geracao">Escolha a Geração</h5>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label check-label" for="flexRadioDefault1">
+                1 - Kanto
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+            <label class="form-check-label check-label" for="flexRadioDefault2">
+                2 - Johyo
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
+            <label class="form-check-label check-label" for="flexRadioDefault2">
+                3 - Hoenn
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault4" checked>
+            <label class="form-check-label check-label" for="flexRadioDefault2">
+                4 - Sinnoh
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault5" checked>
+            <label class="form-check-label check-label" for="flexRadioDefault2">
+                5 - Unova
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault6" checked>
+            <label class="form-check-label check-label" for="flexRadioDefault2">
+                6 - Kalos
+            </label>
+        </div>
+        <img src="../img/pokebola.png" alt="" class="img-geracao">
+    </div>
 </div>
+<div class="escolha-pokemon">
+    <div class="escolha-pokemon-black">
+        <h5 class="h5-geracao">Escolha o Pokémon</h5>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label check-label" for="flexRadioDefault1">
+                1 - Pokémon
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+            <label class="form-check-label check-label" for="flexRadioDefault2">
+                2 - Pokémon
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked>
+            <label class="form-check-label check-label" for="flexRadioDefault2">
+                3 - Pokémon
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault4" checked>
+            <label class="form-check-label check-label" for="flexRadioDefault2">
+                4 - Pokémon
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault5" checked>
+            <label class="form-check-label check-label" for="flexRadioDefault2">
+                5 - Pokémon
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input check-box" type="radio" name="flexRadioDefault" id="flexRadioDefault6" checked>
+            <label class="form-check-label check-label" for="flexRadioDefault2">
+                6 - Pokémon
+            </label>
+        </div>
+        <img src="../img/pikachu.png" alt="" class="img-pokemon">
+    </div>
+</div>
+<img src="../img/card.png" alt="" class="card">
+<div class="selecao">
+    <select class="form-select" aria-label="Default select example">
+        <option selected>TIPO</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+    </select>
+    <select class="form-select" aria-label="Default select example">
+        <option selected>RARIDADE</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+    </select>
+    <button type="button" class="btn btn-danger botao-pokedex">POKÉDEX</button>
+</div>
+<div id="columnchart_values" style="width: 900px; height: 300px;" class="grafico_geracao"></div>
