@@ -32,5 +32,9 @@ namespace PokeGraf.Models
             ValorMinimo = valorMinimo;
             ValorMax = valorMax;
         }
+
+
+
+
     }
 }

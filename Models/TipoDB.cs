@@ -780,8 +780,650 @@ namespace PokeGraf.Models
         #region Recebendo Dano
 
 
+        /// <summary>
+        /// Lista de elementos que causam 2x quando atacam o elemento instanciado.
+        /// </summary>
+        /// <returns>Lista de Elementos formato String</returns>
+        public List<TipoDB> RecebeSuperEfetivo()
+        {
+            List<TipoDB> super = new List<TipoDB>(6);
+            switch (this.Nome)
+            {
+                case "fire":
+                    try
+                    {
+                        super.Add(Construir("grass"));
+                        super.Add(Construir("ice"));
+                        super.Add(Construir("bug"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "water":
+                    try
+                    {
+                        super.Add(Construir("fire"));
+                        super.Add(Construir("ground"));
+                        super.Add(Construir("rock"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "grass":
+                    try
+                    {
+                        super.Add(Construir("water"));
+                        super.Add(Construir("ground"));
+                        super.Add(Construir("rock"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "electric":
+                    try
+                    {
+                        super.Add(Construir("water"));
+                        super.Add(Construir("flying"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "ice":
+                    try
+                    {
+                        super.Add(Construir("grass"));
+                        super.Add(Construir("ground"));
+                        super.Add(Construir("flying"));
+                        super.Add(Construir("dragon"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "fighting":
+                    try
+                    {
+                        super.Add(Construir("normal"));
+                        super.Add(Construir("ice"));
+                        super.Add(Construir("rock"));
+                        super.Add(Construir("dark"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "poison":
+                    try
+                    {
+                        super.Add(Construir("grass"));
+                        super.Add(Construir("fairy"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "ground":
+                    try
+                    {
+                        super.Add(Construir("fire"));
+                        super.Add(Construir("electric"));
+                        super.Add(Construir("poison"));
+                        super.Add(Construir("rock"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "flying":
+                    try
+                    {
+                        super.Add(Construir("grass"));
+                        super.Add(Construir("fighting"));
+                        super.Add(Construir("bug"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "psychic":
+                    try
+                    {
+                        super.Add(Construir("fighting"));
+                        super.Add(Construir("poison"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "bug":
+                    try
+                    {
+                        super.Add(Construir("grass"));
+                        super.Add(Construir("psychic"));
+                        super.Add(Construir("dark"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "rock":
+                    try
+                    {
+                        super.Add(Construir("fire"));
+                        super.Add(Construir("ice"));
+                        super.Add(Construir("flying"));
+                        super.Add(Construir("bug"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "ghost":
+                    try
+                    {
+                        super.Add(Construir("psychic"));
+                        super.Add(Construir("ghost"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "dark":
+                    try
+                    {
+                        super.Add(Construir("psychic"));
+                        super.Add(Construir("ghost"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "dragon":
+                    try
+                    {
+                        super.Add(Construir("dragon"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "steel":
+                    try
+                    {
+                        super.Add(Construir("ice"));
+                        super.Add(Construir("rock"));
+                        super.Add(Construir("fairy"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "fairy":
+                    try
+                    {
+                        super.Add(Construir("fighting"));
+                        super.Add(Construir("dragon"));
+                        super.Add(Construir("dark"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                default:
+                    throw new Exception("Valor Não Listado");
+            }
+
+        }
+
+        /// <summary>
+        /// Lista de elementos que causam 0.5 quando atacam o elemento instanciado.
+        /// </summary>
+        /// <returns></returns>
+        public List<TipoDB> RecebeMetadeDoDano()
+        {
+            List<TipoDB> super = new List<TipoDB>(6);
+            switch (this.Nome)
+            {
+                case "normal":
+                    try
+                    {
+                        super.Add(Construir("rock"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "fire":
+                    try
+                    {
+                        super.Add(Construir("fire"));
+                        super.Add(Construir("water"));
+                        super.Add(Construir("rock"));
+                        super.Add(Construir("dragon"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "water":
+                    try
+                    {
+                        super.Add(Construir("water"));
+                        super.Add(Construir("grass"));
+                        super.Add(Construir("dragon"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "grass":
+                    try
+                    {
+                        super.Add(Construir("fire"));
+                        super.Add(Construir("grass"));
+                        super.Add(Construir("poison"));
+                        super.Add(Construir("flying"));
+                        super.Add(Construir("bug"));
+                        super.Add(Construir("dragon"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "electric":
+                    try
+                    {
+                        super.Add(Construir("electric"));
+                        super.Add(Construir("grass"));
+                        super.Add(Construir("dragon"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "ice":
+                    try
+                    {
+                        super.Add(Construir("fire"));
+                        super.Add(Construir("water"));
+                        super.Add(Construir("ice"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "fighting":
+                    try
+                    {
+                        super.Add(Construir("poison"));
+                        super.Add(Construir("flying"));
+                        super.Add(Construir("psychic"));
+                        super.Add(Construir("bug"));
+                        super.Add(Construir("fairy"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "poison":
+                    try
+                    {
+                        super.Add(Construir("poison"));
+                        super.Add(Construir("ground"));
+                        super.Add(Construir("rock"));
+                        super.Add(Construir("ghost"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "ground":
+                    try
+                    {
+                        super.Add(Construir("grass"));
+                        super.Add(Construir("bug"));
+                        super.Add(Construir("poison"));
+                        super.Add(Construir("rock"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "flying":
+                    try
+                    {
+                        super.Add(Construir("electric"));
+                        super.Add(Construir("rock"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "psychic":
+                    try
+                    {
+                        super.Add(Construir("psychic"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "bug":
+                    try
+                    {
+                        super.Add(Construir("fire"));
+                        super.Add(Construir("fighting"));
+                        super.Add(Construir("poison"));
+                        super.Add(Construir("flying"));
+                        super.Add(Construir("ghost"));
+                        super.Add(Construir("steel"));
+                        super.Add(Construir("fairy"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "rock":
+                    try
+                    {
+                        super.Add(Construir("fighting"));
+                        super.Add(Construir("ground"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "ghost":
+                    try
+                    {
+                        super.Add(Construir("dark"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "dark":
+                    try
+                    {
+                        super.Add(Construir("fighting"));
+                        super.Add(Construir("dark"));
+                        super.Add(Construir("fairy"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "dragon":
+                    try
+                    {
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "steel":
+                    try
+                    {
+                        super.Add(Construir("fire"));
+                        super.Add(Construir("water"));
+                        super.Add(Construir("electric"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "fairy":
+                    try
+                    {
+                        super.Add(Construir("fire"));
+                        super.Add(Construir("poison"));
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                default:
+                    throw new Exception("Valor Não Listado");
+            }
+        }
+
+        /// <summary>
+        /// Lista de elementos que não recebem dano quando atacados pelo elemento instanciado.
+        /// </summary>
+        /// <returns></returns>
+        public List<TipoDB> NaoRecebemDano()
+        {
+            List<TipoDB> super = new List<TipoDB>(6);
+            switch (this.Nome)
+            {
+                case "normal":
+                    try
+                    {
+                        super.Add(Construir("ghost"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "electric":
+                    try
+                    {
+                        super.Add(Construir("ground"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "fighting":
+                    try
+                    {
+                        super.Add(Construir("ghost"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "poison":
+                    try
+                    {
+                        super.Add(Construir("steel"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "ground":
+                    try
+                    {
+                        super.Add(Construir("flying"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "psychic":
+                    try
+                    {
+                        super.Add(Construir("dark"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "ghost":
+                    try
+                    {
+                        super.Add(Construir("normal"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                case "dragon":
+                    try
+                    {
+                        super.Add(Construir("fairy"));
+                    }
+                    catch (Exception e)
+                    {
+                        //Providenciar log
+                        throw new Exception(e.Message);
+                    }
+                    return super;
+
+                default:
+                    throw new Exception("Valor Não Listado");
+            }
+
+        }
+
 
         #endregion Recebendo Dano
+
 
         /// <summary>
         /// Lista Pokemons com o elemento Instanciado
@@ -791,5 +1433,15 @@ namespace PokeGraf.Models
         {
             return new List<PokemonDB>();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<PokemonDB> GetMoves()
+        {
+            return new List<PokemonDB>();
+        }
+
     }
 }

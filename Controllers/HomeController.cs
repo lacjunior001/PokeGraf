@@ -43,27 +43,27 @@ namespace PokeGraf.Controllers
 
             }
 
-        //    str.Append("]);" +
+            //    str.Append("]);" +
 
-        //    "var view = new google.visualization.DataView(data);" +
-        //    "view.setColumns([0, 1," +
-        //        "{" +
-        //    "calc: \"stringify\"," +
-        //            "sourceColumn: 1," +
-        //            "type: \"string\"," +
-        //            "role: \"annotation" +
-        //        "}," +
-        //        "2]);" +
-        //    "var options = {" +
-        //        "title: \"Número de Pokémon por Geração\"," +
-        //        "width: 300," +
-        //        "height: 500," +
-        //        "bar: { groupWidth: \"95%\" }," +
-        //        "legend: { position: \"none\" }," +
-        //    "};" +
-        //"var chart = new google.visualization.ColumnChart(document.getElementById(\"columnchart_values\"));" +
-        //"chart.draw(view, options);" +
-        //"}");
+            //    "var view = new google.visualization.DataView(data);" +
+            //    "view.setColumns([0, 1," +
+            //        "{" +
+            //    "calc: \"stringify\"," +
+            //            "sourceColumn: 1," +
+            //            "type: \"string\"," +
+            //            "role: \"annotation" +
+            //        "}," +
+            //        "2]);" +
+            //    "var options = {" +
+            //        "title: \"Número de Pokémon por Geração\"," +
+            //        "width: 300," +
+            //        "height: 500," +
+            //        "bar: { groupWidth: \"95%\" }," +
+            //        "legend: { position: \"none\" }," +
+            //    "};" +
+            //"var chart = new google.visualization.ColumnChart(document.getElementById(\"columnchart_values\"));" +
+            //"chart.draw(view, options);" +
+            //"}");
 
             Microsoft.AspNetCore.Html.HtmlString htmlContent = new Microsoft.AspNetCore.Html.HtmlString("<h1>TESTE</h1>");
 
@@ -78,14 +78,15 @@ namespace PokeGraf.Controllers
             return View();
         }
 
+        public IActionResult MedStatus()
+        {
+            return View();
+        }
 
-
-
-            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
     }
 }
