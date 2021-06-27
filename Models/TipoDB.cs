@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace PokeGraf.Models
 {
@@ -14,6 +15,8 @@ namespace PokeGraf.Models
         public int IdTipo { get; private set; }
         public string Nome { get; private set; }
 
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Construtor do Tipo/Elemento
         /// </summary>
@@ -23,6 +26,7 @@ namespace PokeGraf.Models
         {
             this.IdTipo = idTipo;
             this.Nome = nomeTipo;
+
         }
 
         /// <summary>
@@ -34,6 +38,17 @@ namespace PokeGraf.Models
         {
             try
             {
+                FileStream fs = new FileStream(@"C:\log4net\log4net.config", FileMode.Open);
+                log4net.Config.XmlConfigurator.Configure(fs);
+                fs.Close();
+            }
+            catch (Exception e)
+            {
+                throw new Exception("log4net." + e.Message);
+            }
+
+            try
+            {
                 //Gabriel Providenciar selec tipo/elemento pelo nome do tipo - retorna objeto TipoDB
                 Banco.BancoSelect.BuscaNoBanco(nome);
 
@@ -41,11 +56,11 @@ namespace PokeGraf.Models
             }
             catch (Exception e)
             {
-                //Providenciar log falha na busca do banco
+                log.Error("Tipo.Erro ao Consultar Banco", e);
 
                 int i = IdAPITipo(nome);
 
-                RestSharp.IRestResponse resposta = Controllers.Outros.BaixarInfoAPI("https://pokeapi.co/api/v2/type/{i}/");
+                RestSharp.IRestResponse resposta = Controllers.Outros.BaixarInfoAPI($"https://pokeapi.co/api/v2/type/{i}/");
                 if (resposta.IsSuccessful)
                 {
                     Type type = Newtonsoft.Json.JsonConvert.DeserializeObject<Type>(resposta.Content);
@@ -58,13 +73,13 @@ namespace PokeGraf.Models
                     }
                     catch (Exception ex)
                     {
-                        //logErroAoInserir
+                        log.Error("Tipo.Erro ao inserir no banco", e);
                     }
                     return tipo;
                 }
                 else
                 {
-                    //Providenciar log falha ao buscar na API
+                    log.Error("Tipo.Erro ao Consultar na API", e);
                     throw new Exception("Elemento não encontrado");
                 }
             }
@@ -153,8 +168,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
-
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -168,7 +182,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -182,7 +196,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -195,7 +209,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -210,7 +224,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -226,7 +240,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -239,7 +253,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -255,7 +269,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -269,7 +283,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -282,7 +296,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -296,7 +310,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -311,7 +325,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -324,7 +338,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -337,7 +351,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -349,7 +363,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -363,7 +377,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -377,7 +391,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremSuPerEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -405,7 +419,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -420,7 +434,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -434,7 +448,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -452,7 +466,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -466,7 +480,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -481,7 +495,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -497,7 +511,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -512,7 +526,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -528,7 +542,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -542,7 +556,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -555,7 +569,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -573,7 +587,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -587,7 +601,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -599,7 +613,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -613,7 +627,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -625,7 +639,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -640,7 +654,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -654,7 +668,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.SofremMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -680,7 +694,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoSofremDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -692,7 +706,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoSofremDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -704,7 +718,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoSofremDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -716,7 +730,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoSofremDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -728,7 +742,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoSofremDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -740,7 +754,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoSofremDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -752,7 +766,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoSofremDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -764,7 +778,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoSofremDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -778,7 +792,6 @@ namespace PokeGraf.Models
         #endregion Causando Dano
 
         #region Recebendo Dano
-
 
         /// <summary>
         /// Lista de elementos que causam 2x quando atacam o elemento instanciado.
@@ -799,8 +812,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
-
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -814,7 +826,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -828,7 +840,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -841,7 +853,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -856,7 +868,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -872,7 +884,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -885,7 +897,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -901,7 +913,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -915,7 +927,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -928,7 +940,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -942,7 +954,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -957,7 +969,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -970,7 +982,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -983,7 +995,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -995,7 +1007,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1009,7 +1021,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1023,7 +1035,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeSuperEfetivo.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1051,7 +1063,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1066,7 +1078,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1080,7 +1092,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1098,7 +1110,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1112,7 +1124,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1127,7 +1139,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1143,7 +1155,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1158,7 +1170,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1174,7 +1186,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1188,7 +1200,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1201,7 +1213,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1219,7 +1231,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1233,7 +1245,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1245,7 +1257,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1259,7 +1271,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1271,7 +1283,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1286,7 +1298,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1300,7 +1312,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.RecebeMetadeDoDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1326,7 +1338,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoRecebemDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1338,7 +1350,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoRecebemDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1350,7 +1362,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoRecebemDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1362,7 +1374,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoRecebemDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1374,7 +1386,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoRecebemDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1386,7 +1398,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoRecebemDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1398,7 +1410,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoRecebemDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1410,7 +1422,7 @@ namespace PokeGraf.Models
                     }
                     catch (Exception e)
                     {
-                        //Providenciar log
+                        log.Error("Tipo.NaoRecebemDano.", e);
                         throw new Exception(e.Message);
                     }
                     return super;
@@ -1421,7 +1433,6 @@ namespace PokeGraf.Models
 
         }
 
-
         #endregion Recebendo Dano
 
 
@@ -1431,7 +1442,41 @@ namespace PokeGraf.Models
         /// <returns></returns>
         public List<PokemonDB> GetPokemons()
         {
-            return new List<PokemonDB>();
+            List<PokemonDB> listaPoke = new List<PokemonDB>();
+
+            try
+            {
+                //gabriel providenciar select no banco que retorna lista de pokemons de determinado elemento
+                Banco.BancoSelect.BuscaNoBanco(Nome);
+
+                return listaPoke;
+            }
+            catch (Exception e)
+            {
+                int i = IdAPITipo(Nome);
+                RestSharp.IRestResponse resposta = Controllers.Outros.BaixarInfoAPI($"https://pokeapi.co/api/v2/type/{i}/");
+
+                if (resposta.IsSuccessful)
+                {
+                    Type type = Newtonsoft.Json.JsonConvert.DeserializeObject<Type>(resposta.Content);
+
+                    foreach (var item in type.Pokemon)
+                    {
+                        //PokemonDB poke = PokemonDB.
+
+
+                    }
+
+
+
+                }
+                else
+                {
+                    log.Error($"erro ao pegar pokemons na api.<<{resposta.Content}>>");
+                    throw new Exception($"erro ao pegar pokemons na api.<<{resposta.Content}>>");
+                }
+                return listaPoke;
+            }
         }
 
         /// <summary>
