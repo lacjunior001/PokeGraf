@@ -68,10 +68,12 @@ namespace PokeGraf.Models
 
             try
             {
-                //Gabriel Providenciar selec tipo/elemento pelo nome do tipo - retorna objeto TipoDB
+                //Gabriel Providenciar selec que vai instanciar o pokemon através do dome do pokemon e retornar o pokemon encontrado.
                 Banco.BancoSelect.BuscaNoBanco(nome);
 
-                RegiaoDB reg = new RegiaoDB(1, "reg");
+                string nomeRegião = null;
+
+                RegiaoDB reg = RegiaoDB.Construir(nomeRegião);
 
                 return new PokemonDB(1, "nomeee", 1.66, 55.5, "desc", "rar", "sprite", reg);
             }
@@ -94,8 +96,6 @@ namespace PokeGraf.Models
                         log.Error("Erro ao recuperar Pokemon na API");
                         throw new Exception("Erro ao recuperar Pokemon na API");
                     }
-
-
 
                     int id = pokeAPI.Id;
                     string nomePokk = pokeAPI.Name;
@@ -123,20 +123,19 @@ namespace PokeGraf.Models
 
                     string sprite = pokeAPI.Sprites != null ? pokeAPI.Sprites.FrontDefault : null;
 
-                    RegiaoDB regiao = RegiaoDB.Construir();
+                    RegiaoDB regiao = RegiaoDB.Construir(pokeSAPI.Generation.Name);
 
-                    poke = new PokemonDB(id, nomePokk, altura, peso, descricao, raridade, sprite,);
+                    poke = new PokemonDB(id, nomePokk, altura, peso, descricao, raridade, sprite, regiao);
 
                     try
                     {
-                        //Gabriel providenciar o insert no banco
+                        //Gabriel providenciar o insert no banco do pokemon que foi pego na API
                     }
                     catch (Exception ex)
                     {
-
-                        log.Error("Tipo.Erro ao inserir no banco", e);
+                        log.Error("Impossivel Gravar Pokemon no Banco", e);
                     }
-                    return tipo;
+                    return poke;
                 }
                 else
                 {

@@ -29,7 +29,7 @@ namespace PokeGraf.Models
         }
 
         /// <summary>
-        /// Retorna a classe Tipo/Elemento.
+        /// Retorna a Região/Geração dos Pokemon.
         /// Buca no banco se não achar busca na API.
         /// </summary>
         /// <returns></returns>
@@ -48,7 +48,7 @@ namespace PokeGraf.Models
 
             try
             {
-                //Gabriel Providenciar selec tipo/elemento pelo nome do tipo - retorna objeto TipoDB
+                //Gabriel Providenciar selec que procura a região pelo nome recebido aqui e retorna essa região
                 Banco.BancoSelect.BuscaNoBanco(nome);
 
                 return new RegiaoDB(1, "qqqq");
@@ -57,33 +57,66 @@ namespace PokeGraf.Models
             {
                 log.Error("Tipo.Erro ao Consultar Banco", e);
 
-                RestSharp.IRestResponse resposta = Controllers.Outros.BaixarInfoAPI($"https://pokeapi.co/api/v2/type/{i}/");
-
+                RestSharp.IRestResponse resposta = Controllers.Outros.BaixarInfoAPI($"https://pokeapi.co/api/v2/generation/{nome}/");
                 if (resposta.IsSuccessful)
                 {
-                    Type type = Newtonsoft.Json.JsonConvert.DeserializeObject<Type>(resposta.Content);
-
-                    TipoDB tipo = new TipoDB(type.Id, type.Name);
+                    Generation geracao = Newtonsoft.Json.JsonConvert.DeserializeObject<Generation>(resposta.Content);
+                    RegiaoDB regiao = new RegiaoDB(geracao.Id, geracao.Name);
 
                     try
                     {
-                        //Gabriel providenciar o insert no banco
+                        //Gabriel providenciar insert da região no banco
                     }
                     catch (Exception ex)
                     {
-                        log.Error("Tipo.Erro ao inserir no banco", e);
+                        log.Error("Região.Erro ao inserir no banco", e);
                     }
-                    return tipo;
+                    return regiao;
                 }
                 else
                 {
-                    log.Error("Tipo.Erro ao Consultar na API", e);
-                    throw new Exception("Elemento não encontrado");
+                    log.Error("Região.Erro ao Consultar na API.", e);
+                    throw new Exception("Região não encontrada.");
                 }
             }
         }
 
+        /// <summary>
+        /// Retorna os Pokemons apareceram pela primeira vez na região Instanciada.
+        /// </summary>
+        /// <returns></returns>
+        public List<PokemonDB> PokemonsReg()
+        {
+            List<PokemonDB> lista = new List<PokemonDB>();
+            try
+            {
+                //Gabriel providenciar o select que vai listar todos pokemons de uma regição.
+                return new List<PokemonDB>();
+            }
+            catch (Exception e)
+            {
+                Generation geracao = null;
 
+                RestSharp.IRestResponse resposta = Controllers.Outros.BaixarInfoAPI($"https://pokeapi.co/api/v2/generation/{Nome}/");
+                if (resposta.IsSuccessful)
+                {
+                    geracao = Newtonsoft.Json.JsonConvert.DeserializeObject<Generation>(resposta.Content);
+
+                    foreach (var item in geracao.PokemonSpecies)
+                    {
+                        PokemonDB poke = PokemonDB.Construir(item.Name);
+                        lista.Add(poke);
+                    }
+
+                    return lista;
+                }
+                else
+                {
+                    log.Error("Região.Erro Ao recuperar Lista de Pokemons");
+                    throw new Exception("Região.Erro Ao recuperar Lista de Pokemons");
+                }
+            }
+        }
 
 
     }

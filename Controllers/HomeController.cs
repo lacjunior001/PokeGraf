@@ -19,55 +19,26 @@ namespace PokeGraf.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string[] geracoes)
         {
-            List<string> tipos = new List<string>(18);
-            List<int> quantidade = new List<int>(18);
-
-            //Banco.BancoSelect banco = new Banco.BancoSelect();
-            StringBuilder str = new StringBuilder();
-            //str.Append("google.charts.load(\"current\", { packages:['corechart'] });" +
-            //                "google.charts.setOnLoadCallback(drawChart);" +
-            //                "function drawChart()" +
-            //                 "{" +
-            //                    "var data = google.visualization.arrayToDataTable([" +
-            //                    "[\"Element\", \"oi\", { role: \"style\" }],\");");
-
-            for (int i = 0; i < 18; i++)
+            if (geracoes == null)
             {
-                //quantidade.Add(banco.RetornarQuantidade(i));
-                //tipos.Add(banco.RetornarNomeTipo(i));
-                //str.Append($"[\"{banco.RetornarNomeTipo(i)}\", {banco.RetornarQuantidade(i)}, \"#e32636\"],");
-
-                str.Append($"[\"Voador\", 30, \"#e32636\"],");
+                //parametros para os gaficos zerados
 
             }
+            else
+            {
+                List<RegiaoDB> regioes = new List<RegiaoDB>();
 
-            //    str.Append("]);" +
+                foreach (var item in geracoes)
+                {
+                    RegiaoDB reg = RegiaoDB.Construir(item);
+                    regioes.Add(reg);
+                }
 
-            //    "var view = new google.visualization.DataView(data);" +
-            //    "view.setColumns([0, 1," +
-            //        "{" +
-            //    "calc: \"stringify\"," +
-            //            "sourceColumn: 1," +
-            //            "type: \"string\"," +
-            //            "role: \"annotation" +
-            //        "}," +
-            //        "2]);" +
-            //    "var options = {" +
-            //        "title: \"Número de Pokémon por Geração\"," +
-            //        "width: 300," +
-            //        "height: 500," +
-            //        "bar: { groupWidth: \"95%\" }," +
-            //        "legend: { position: \"none\" }," +
-            //    "};" +
-            //"var chart = new google.visualization.ColumnChart(document.getElementById(\"columnchart_values\"));" +
-            //"chart.draw(view, options);" +
-            //"}");
+                ViewBag.Regioes = regioes;
+            }
 
-            Microsoft.AspNetCore.Html.HtmlString htmlContent = new Microsoft.AspNetCore.Html.HtmlString("<h1>TESTE</h1>");
-
-            //ViewBag.Quantidade = str.ToString();
             //ViewBag.Tipos = tipos;
 
             return View();
